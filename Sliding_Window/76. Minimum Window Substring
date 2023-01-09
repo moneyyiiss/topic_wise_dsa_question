@@ -1,0 +1,41 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        int sn = s.length();
+        int tn = t.length();
+        int[] freq = new int[128];
+        for(int i=0; i<tn; i++){
+            freq[t.charAt(i)]++;
+        }
+        
+        int si = 0, ei=0, len = (int)1e9, count = tn, gsi =0;
+        while(ei < sn){
+            if(freq[s.charAt(ei)] > 0){
+                count--;
+            }
+            freq[s.charAt(ei)]--;
+            ei++;
+            while(count == 0){
+                if(ei - si < len){
+                    len = ei - si;
+                    gsi = si;
+                }
+                if(freq[s.charAt(si)] == 0){
+                    count++;
+                }
+                freq[s.charAt(si)]++;
+                si++;
+                
+                
+            }
+            
+        }
+        
+        String ans = "";
+        if(len != (int)1e9){
+            ans = s.substring(gsi, gsi+len);
+        }
+        return ans;
+        // return len == (int)1e9 ? "":s.substring(gsi, gsi+len);
+        
+    }
+}
