@@ -1,0 +1,35 @@
+//leetcode
+class Solution {
+    public int lengthOfLongestSubstring(String st) {
+        if(st.length() == 0){
+            return 0;
+        }
+        int s = 0;
+        int e = 0;
+        int count = 0;
+        int len = -1;
+        int[] fre = new int[128];
+        while(e < st.length()){
+            if(fre[st.charAt(e)] > 0){
+                count++;
+            }
+            fre[st.charAt(e)]++;
+            e++;
+            
+            //maintainance of count = 0
+            while(count > 0){
+                if(fre[st.charAt(s)] > 1){
+                    count--;
+                }
+                
+                fre[st.charAt(s)]--;
+                s++;
+            }
+            len = Math.max(len, e-s);
+            
+            
+        }
+        return len;
+    }
+    
+}
