@@ -20,3 +20,26 @@ class Solution {
 
     }
 }
+
+//another code
+class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int indexDiff, int valueDiff) {
+     TreeSet<Long> set = new TreeSet<>();
+     for(int i=0; i<nums.length; i++){
+         Long ei = 1L * nums[i];
+         Long floor = set.floor(1L * ei);
+         Long ceil = set.ceiling(1L *  ei);
+         if(floor != null && Math.abs(floor - ei) <= valueDiff){
+             return true;
+         }
+         if(ceil != null && Math.abs(ceil - ei) <= valueDiff){
+             return true;
+         }
+         set.add(ei);
+         if(set.size() > indexDiff){
+             set.remove(1L * nums[i-indexDiff]);
+         }
+     }   
+     return false;
+    }
+}
